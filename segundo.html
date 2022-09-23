@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			// Our Javascript will go here.
+            var scene= new THREE.Scene();
+
+            //aspecto alto y ancho
+
+            var aspect = window.innerWidth/ window.innerHeight;
+
+            //var camera = new THREE.OrthographicCamera();
+
+            var camera= new  THREE.OrthographicCamera(-aspect, aspect,1,-1,1,-1);
+
+
+            var renderer = new THREE.WebGLRenderer({alpa: true, antialias: true});
+
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(  renderer.domElement);
+
+            var geometry = new THREE.BufferGeometry();
+
+            var vertices = new Float32Array([
+                -0.02,0,0,
+                0.02,0,0,
+                0,0.8,0,
+            ]);
+
+
+            geometry.setAttribute(  'position', new THREE.BufferAttribute(  vertices, 3));
+
+
+            //var colores = new Uint8Array([
+            //    182,0,0,
+            //    0,182,0,
+            //    0,0,182
+            //]);
+
+
+            //geometry.setAttribute('color', new THREE.BufferAttribute(colores,3,true));
+
+            //var material = new  THREE.MeshBasicMaterial(
+            //{ color: 0xfffff, vertexColors: THREE.VertexColors});
+
+
+
+
+
+            var material = new THREE.MeshBasicMaterial( {color: 0xff0000});
+
+            var triangulo = new THREE.Mesh(  geometry, material);
+            scene.add(  triangulo );
+
+
+            var segundero = new THREE.Mesh(  geometry, material);
+            scene.add(  segundero );
+
+            var minutero = new THREE.Mesh(  geometry, material);
+            scene.add(  minutero );
+
+            var horario = new THREE.Mesh(  geometry, material);
+            scene.add(  horario );
+
+
+            minutero.scale.y=0.8;
+            horario.scale.y=0.5;
+             
+
+
+
+
+
+            var circleGeometry= new THREE.CircleBufferGeometry(0.9, 125);
+
+
+            var materialBlue= new THREE.MeshBasicMaterial({color: 0x00AAFF});
+            var circleBlue= new THREE.Mesh(  circleGeometry, materialBlue);
+
+            circleBlue.position.z=0.2;
+            scene.add(circleBlue);
+
+            var materialWhite= new THREE.MeshBasicMaterial({color: 0xFFFFFF});
+            var circleWhite = new THREE.Mesh(circleGeometry, materialWhite);
+            circleWhite.position.z= 0.1;
+            circleWhite.scale.x=0.98;
+            circleWhite.scale.y=0.98;
+            scene.add(circleWhite);
+
+
+            camera.position.z=0.1;
+            renderer.render(scene, camera);
+
+
+            var update = function(){
+                requestAnimationFrame(update);
+
+                var hoy = new Date();
+
+                horario.rotation.z=-Math.PI/180*30*((hoy.getHours()%12)+ hoy.getMinutes()/60);
+                minutero.rotation.z=-Math.PI/180*6*(hoy.getMinutes()+ hoy.getSeconds()/60);
+
+
+                segundero.rotation.z=-Math.PI/180*6*(hoy.getSeconds()+hoy.getMilliseconds()/1000);
+                
+
+                renderer.render(scene,camera);
+            };
+
+            update();
+
+
+            
+
+            // evento que me ayuda a que la figure se transforme a razon de la ventana
+            window.addEventListener
+                ('resize', function(event){
+
+                    aspect= window.innerWidth / window.innerHeight;
+
+                    renderer.setSize(window.innerWidth,window.innerHeight);
+
+
+                    camera.left = -aspect;
+                    camera.rigth= aspect;
+
+                    camera.updateProjectionMatrix();
+
+                    renderer.render( scene, camera);
+                    
+            }, false);
+		</script>
+	</body>
+</html>

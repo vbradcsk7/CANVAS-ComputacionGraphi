@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+		<script src="js/three.js"></script>
+		<script>
+			// Our Javascript will go here.
+			
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+			camera.position.set( 0, 0, 100 );
+			camera.lookAt( 0, 0, 0 );
+
+
+
+			const scene = new THREE.Scene()
+			const material = new THREE.LineBasicMaterial( { color: 0x00ff00 } );
+
+			const materialagua = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+
+
+			//montaña #1
+			const points = [];
+			points.push( new THREE.Vector3( -5, 0, 0 ) );
+			points.push( new THREE.Vector3( 0, 5, 0 ) );
+			points.push( new THREE.Vector3( 5, 0, 0 ) );
+
+			const geometry = new THREE.BufferGeometry().setFromPoints( points );	
+			const line = new THREE.Line( geometry, material );
+			scene.add( line );
+
+
+			//montaña #2
+
+
+			const points2 = [];
+			points2.push( new THREE.Vector3( -10, 0, 0 ) );
+			points2.push( new THREE.Vector3( 0, 10, 0 ) );
+			points2.push( new THREE.Vector3( 10, 0, 0 ) );
+
+			const geometry2 = new THREE.BufferGeometry().setFromPoints( points2 );	
+			const line2 = new THREE.Line( geometry2, material );
+			scene.add( line2 );
+
+
+			// montaña #3
+
+
+			const points3 = [];
+			points3.push( new THREE.Vector3( -15, 0, 0 ) );
+			points3.push( new THREE.Vector3( 0, 15, 0 ) );
+			points3.push( new THREE.Vector3( 15, 0, 0 ) );
+
+			const geometry3 = new THREE.BufferGeometry().setFromPoints( points3 );	
+			const line3 = new THREE.Line( geometry3, material );
+			scene.add( line3 );
+
+
+			// montaña #4
+
+
+			const points4 = [];
+			points4.push( new THREE.Vector3( -20, 0, 0 ) );
+			points4.push( new THREE.Vector3( 0, 20, 0 ) );
+			points4.push( new THREE.Vector3( 20, 0, 0 ) );
+
+			const geometry4 = new THREE.BufferGeometry().setFromPoints( points4 );	
+			const line4 = new THREE.Line( geometry4, material );
+			scene.add( line4 );
+
+
+
+			// Terreno horizontal #1
+
+
+			const tereno = [];
+			tereno.push( new THREE.Vector3( 90, 0, 0 ) );
+			tereno.push( new THREE.Vector3( 0, 0, 90 ) );
+			tereno.push( new THREE.Vector3( -90, 0, 0 ) );
+
+			const geometry5 = new THREE.BufferGeometry().setFromPoints( tereno );	
+			const lineterreno = new THREE.Line( geometry5, material );
+			scene.add( lineterreno );
+
+
+
+			// Terreno agua #1
+
+
+			const tereno1 = [];
+			tereno1.push( new THREE.Vector3( 0, -30, 30 ) );
+			tereno1.push( new THREE.Vector3( 100, 0, 0 ) );
+			tereno1.push( new THREE.Vector3( -70, -1500, -50 ) );
+
+			const geometry6 = new THREE.BufferGeometry().setFromPoints( tereno1 );	
+			const lineterreno1 = new THREE.Line( geometry6, materialagua );
+			scene.add( lineterreno1 );
+
+
+			//sol
+
+			//crea una estructura geométrica (cubo)
+
+			const  geometry7 = new THREE.BoxGeometry(10, 10,10);
+							
+			//Define el material que será utilizado
+			var material3 = new THREE.MeshBasicMaterial({color: '#ffff00'});
+
+			//crea un cubo con la geometria + el material
+			const  mesh = new THREE.Mesh(geometry7, material3);
+
+			mesh.position.x=0.7
+			mesh.position.y=-0.6
+			mesh.position.z=-1
+
+			mesh.position.set(0.1,-0.6,1)
+			
+
+			//Adiciona la scene
+			scene.add(mesh);
+			
+			renderer.render( scene, camera );
+
+
+		
+
+			
+
+		</script>
+	</body>
+</html>
